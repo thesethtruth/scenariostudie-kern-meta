@@ -32,6 +32,31 @@
 2. Grootschalige kernenergie
 3. SMR
 
+This means:
+1. 8365 # €/MWe (disabled)
+2. 4100 # €/MWe (centralized_medium)
+3. 2700 # €/MWe (SMR) + SMR_FOM_ratio = 1.333
+
+Other options are:
+| snapshot_year | renewable_lower | demand_scenario | reduction | nuclear_option     | ll_wildcard | h2_demand | onwind      | discount_rate |
+| ------------- | --------------- | --------------- | --------- | ------------------ | ----------- | --------- | ----------- | ------------- |
+| 2040          | eRisk+2035      | national        | 100       | centralized_medium | v1.5        | h2+1.33   | onwind+p0.3 | 0.0225        |
+| 2040          | eRisk+2035      | national        | 100       | disabled           | v1.5        | h2+1.33   | onwind+p0.3 | 0.0225        |
+| 2040          | eRisk+2035      | national        | 100       | SMR                | v1.5        | h2+1.33   | onwind+p0.3 | 0.0225        |
+| 2050          | eRisk+2035      | national        | 103       | centralized_medium | v1.75       | h2+1.5    | onwind+p0.3 | 0.0225        |
+| 2050          | eRisk+2035      | national        | 103       | disabled           | v1.75       | h2+1.5    | onwind+p0.3 | 0.0225        |
+| 2050          | eRisk+2035      | national        | 103       | SMR                | v1.75       | h2+1.5    | onwind+p0.3 | 0.0225        |
+
+Which yields:
+| uuid                                                                |
+| ------------------------------------------------------------------- |
+| 2040eRisk+2035national100.0centralized_mediumv1.5h2+1.33onwind+p0.3 |
+| 2040eRisk+2035national100.0disabledv1.5h2+1.33onwind+p0.3           |
+| 2040eRisk+2035national100.0SMRv1.5h2+1.33onwind+p0.3                |
+| 2050eRisk+2035national103.0centralized_mediumv1.75h2+1.5onwind+p0.3 |
+| 2050eRisk+2035national103.0disabledv1.75h2+1.5onwind+p0.3           |
+| 2050eRisk+2035national103.0SMRv1.75h2+1.5onwind+p0.3                |
+
 ## Demand scenarios
 
 ### Electricity
