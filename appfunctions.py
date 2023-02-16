@@ -1,19 +1,21 @@
+import re
 from typing import List
+
+import pandas as pd
 from pypsa import Network
+
 from definitions import (
     COUNTRIES,
+    LLIM_ONWIND_BE,
     MAX_HOURS_STORAGE_UNITS,
     NICE_NAMES,
-    TECH_COLORS,
-    TECHNOLOGY_EFFICIENCIES,
+    PLOT_COORDINATES,
     SCENARIO_OPTIONS,
     SCENARIO_OPTIONS_MAP,
-    PLOT_COORDINATES,
-    LLIM_ONWIND_BE,
+    TECH_COLORS,
+    TECHNOLOGY_EFFICIENCIES,
 )
-import pandas as pd
 from helpers import reverse
-import re
 
 
 def extract_gasturbines_deployed_capacity(n: Network, country: str, snapshot_year: str):
