@@ -1,9 +1,17 @@
 #%% packages
 import pandas as pd
 from pypsa import Network
+from typing import Tuple
 
 from helpers import load_costs, open_config_yaml_to_dict
 from renamer import DATA_FOLDER
+from viewerfunctions import (
+    extract_deployed_capacity,
+    extract_storage_units_deployed_energy,
+    extract_total_energy_generation_demand,
+)
+
+from definitions import NICE_NAMES
 
 #%% globals
 NETWORKS = list(DATA_FOLDER.glob("*.nc"))
@@ -50,9 +58,6 @@ DAC_CO2_per_MWh = costs.at["DAC", "co2_emissions"]
 df["Negatieve emissies - DAC"] = -1 * DAC_MWh * DAC_CO2_per_MWh
 
 #%% deployed capacity [MW]
-from viewerfunctions import extract_deployed_capacity
-from definitions import NICE_NAMES
-
 
 dep_cap = (
     extract_deployed_capacity(n=n)
@@ -67,7 +72,6 @@ dep_cap.index = ["Opgesteld vermogen - " + i for i in dep_cap.index]
 df = pd.concat([df, dep_cap])
 
 #%% deployed energy capacity [MWh]
-from viewerfunctions import extract_storage_units_deployed_energy
 
 storage_energy = extract_storage_units_deployed_energy(n=n, country=country)[
     "p_nom_opt"
@@ -78,9 +82,30 @@ storage_energy["Waterstofopslag"] = (
 storage_energy.index = [
     "Opgestelde energiecapaciteit - " + i for i in storage_energy.index
 ]
-
-
 df = pd.concat([df, storage_energy])
+
+#%% energy generation and demand (MWh)
+
+generation, demand = extract_total_energy_generation_demand(n=n)
+demand = (
+    demand.query("country == @country")
+    .set_index("technology")
+    .drop(["level", "country"], axis=1)
+).iloc[:, 0]
+generation = (
+    generation.query("country == @country")
+    .set_index("technology")
+    .rename(NICE_NAMES)
+    .drop(["level", "country"], axis=1)
+).iloc[:, 0]
+
+generation.index = [
+    f"Opgewekte energie per technologie - {i}" for i in generation.index
+]
+demand.index = [f"Energievraag per drager - {i}" for i in demand.index]
+
+df = df = pd.concat([df, generation, demand])
+
 
 #%% export capacities
 
@@ -106,7 +131,6 @@ df["Export/import capaciteit - AC overland"] = n.lines.query(
 
 
 #%% exported and imported energy (export is positive!)
-from typing import Tuple
 
 # BUS0
 # p0 (export is positive; The power (p0,q0) at bus0 of a branch is positive if the branch is withdrawing power from bus0, i.e. bus0 is injecting into branch)
@@ -160,3 +184,13 @@ def determine_export_import(
 )
 df["Export - Elektriciteit"] += ac_export
 df["Import - Elektriciteit"] += ac_import
+
+df = df.to_frame()
+#%%
+
+units = pd.read_csv("units_required.csv", index_col=0)
+units.index.name = None
+
+df.join(units)
+
+unit_map = {}

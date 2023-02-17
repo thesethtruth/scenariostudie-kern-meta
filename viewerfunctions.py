@@ -1,5 +1,6 @@
 import re
-from typing import List
+from typing import List, Tuple
+import definitions as defs
 
 import pandas as pd
 from pypsa import Network
@@ -29,14 +30,13 @@ def extract_gasturbines_deployed_capacity(n: Network, country: str, snapshot_yea
         efficiency = TECHNOLOGY_EFFICIENCIES.get(snapshot_year)[technology]
         return (opt_capacity * efficiency, ext_capacity * efficiency)
 
-    df = n.links.query("carrier in @GTS").copy()
+    df = n.links.query("carrier in @defs.GTS").copy()
     df.carrier = df.carrier.replace({"OCGT-nextgen": "OCGT", "CCGT-nextgen": "CCGT"})
     df["country"] = [i[:2] for i in df.index]
     cdf = (
         df.query("country in @countries")
         .groupby("carrier")[["p_nom_opt", "p_nom"]]
         .sum()
-        .divide(1e3)
         .apply(apply_efficiencies, axis=1, result_type="broadcast")
         .reindex(df.carrier.unique())
         .sort_index()
@@ -57,13 +57,12 @@ def extract_fuel_cells_deployed_capacity(n: Network, country: str, snapshot_year
         efficiency = TECHNOLOGY_EFFICIENCIES.get(snapshot_year)[technology]
         return (opt_capacity * efficiency, ext_capacity * efficiency)
 
-    df = n.links.query("carrier in @FUELCELL").copy()
+    df = n.links.query("carrier in @defs.FUELCELL").copy()
     df["country"] = [i[:2] for i in df.index]
     cdf = (
         df.query("country in @countries")
         .groupby("carrier")[["p_nom_opt", "p_nom"]]
         .sum()
-        .divide(1e3)
         .apply(apply_efficiencies, axis=1, result_type="broadcast")
         .reindex(df.carrier.unique())
         .sort_index()
@@ -92,7 +91,6 @@ def extract_storage_units_deployed_capacity(n: Network, country: str, tech: str 
         .query("carrier in @techs")
         .groupby("carrier")[["p_nom", "p_nom_opt"]]
         .sum()
-        .divide(1e3)
         .reindex(df.carrier.unique())
         .sort_index()
         .rename(NICE_NAMES)
@@ -117,16 +115,15 @@ def extract_electrolyser_energy_demand(n: Network, country: str) -> pd.DataFrame
     else:
         countries = COUNTRIES.values()
 
-    df = n.links_t.p0.loc["total", :].to_frame()  # Bus 0 is electric
+    df = n.links_t.p0.sum(axis=0).to_frame()  # Bus 0 is electric
     df["country"] = [i[:2] for i in df.index]
     df["technology"] = [re.sub("\w{3}\s\d\s", "", i) for i in df.index]
 
     return (
-        df.query("technology == @ELECTROLYSER")
+        df.query("technology == @defs.ELECTROLYSER")
         .query("country in @countries")
         .groupby(["country", "technology"])
         .sum()
-        .divide(1e6)
         .rename(NICE_NAMES)
     )
 
@@ -141,7 +138,7 @@ def extract_hydro_generation(n: Network, country: str, techs="hydro") -> pd.Data
     if techs == "hydro":
         techs = [techs]
 
-    df = n.storage_units_t.p.loc["total", :].to_frame()
+    df = n.storage_units_t.p.sum(axis=0).to_frame()
 
     df["country"] = [i[:2] for i in df.index]
     df["technology"] = [i.split(" ")[-1] for i in df.index]
@@ -151,7 +148,6 @@ def extract_hydro_generation(n: Network, country: str, techs="hydro") -> pd.Data
         .query("country in @countries")
         .groupby(["country", "technology"])
         .sum()
-        .divide(1e6)
         .rename({0: "total"}, axis=1)
         # .rename(NICE_NAMES)
     )
@@ -166,25 +162,25 @@ def extract_electricity_generation_from_hydrogen(
     else:
         countries = COUNTRIES.values()
 
-    df = n.links_t.p1.loc["total", :].to_frame()  # Bus 1 is electric
+    df = n.links_t.p1.sum(axis=0).to_frame()  # Bus 1 is electric
     df["country"] = [i[:2] for i in df.index]
     df["technology"] = [re.sub("\w{3}\s\d\s", "", i) for i in df.index]
 
     return (
-        df.query("technology in @H2_GENS")
+        df.query("technology in @defs.H2_GENS")
         .query("country in @countries")
         .groupby(["country", "technology"])
         .sum()
-        .multiply(-1)  # negative link is positive generation
-        .divide(1e6)
-        # .rename(NICE_NAMES)
+        .multiply(
+            -1
+        )  # negative link is positive generation        # .rename(NICE_NAMES)
     )
 
 
 def extract_generation_per_country_per_tech(n: Network, country: str) -> pd.DataFrame:
     """TWh :: determine the generation per county per techonlogy"""
 
-    df = n.generators_t.p.loc["total", :].to_frame()
+    df = n.generators_t.p.sum(axis=0).to_frame()
     df["country"] = [i[:2] for i in df.index]
     df["technology"] = [i.split(" ")[-1] for i in df.index]
 
@@ -196,9 +192,7 @@ def extract_generation_per_country_per_tech(n: Network, country: str) -> pd.Data
     return (
         df.query("country in @countries")
         .groupby(["country", "technology"])
-        .sum()
-        .divide(1e6)
-        # .rename(NICE_NAMES)
+        .sum()  # .rename(NICE_NAMES)
     )
 
 
@@ -308,3 +302,60 @@ def update_renewable_lower(
         ] = None
 
     return renewable_lower
+
+
+def extract_total_energy_generation_demand(
+    n: Network,
+) -> Tuple[pd.DataFrame, pd.DataFrame]:
+
+    countries = [col[:2] for col in n.loads_t.p_set.columns]
+    mindex = pd.MultiIndex.from_arrays(
+        [countries, n.loads_t.p_set.columns], names=["country", "region"]
+    )
+
+    df = n.loads_t.p_set.copy()
+    df.columns = mindex
+
+    # laad data in
+    electric_demand = (
+        df.T.groupby(["country"])
+        .sum()
+        .sum(axis=1)
+        .to_frame()
+        .rename({0: "total"}, axis=1)
+    )
+    electric_demand["technology"] = "Elektrische vraag"
+    electric_demand.set_index("technology", inplace=True, append=True)
+
+    electrolyser_demand = extract_electrolyser_energy_demand(n, None)
+    electrolyser_demand["technology"] = "Waterstofproductie e. vraag"
+    electrolyser_demand.set_index("technology", inplace=True, append=True)
+
+    conventional_generation = extract_generation_per_country_per_tech(n, None)
+    hydrogen_generation = extract_electricity_generation_from_hydrogen(n, None)
+    hydropower_generation = extract_hydro_generation(n, None)
+
+    # categoriseer data in demand en generatie
+    df_demand = pd.concat([electric_demand, electrolyser_demand], axis=0)
+
+    df_generation = pd.concat(
+        [hydrogen_generation, hydropower_generation, conventional_generation], axis=0
+    )
+
+    df_generation = df_generation.rename(
+        {
+            "offwind-ac": "offwind",
+            "offwind-dc": "offwind",
+            "nuclear_nextgen": "nuclear",
+            "OCGT-nextgen": "OCGT",
+            "CCGT-nextgen": "CCGT",
+        }
+    )
+
+    df_demand = df_demand.stack().reset_index()
+    df_generation = df_generation.stack().reset_index()
+
+    df_demand.columns = ["country", "technology", "level", "total"]
+    df_generation.columns = ["country", "technology", "level", "total"]
+
+    return df_generation, df_demand
