@@ -105,25 +105,58 @@ df["Export/import capaciteit - AC overland"] = n.lines.query(
 )["s_nom_opt"].sum()
 
 
-#%% exported energy
-
-## hydrogen
-# (n.links_t['p0'] - n.links_t['p1'])/n.links_t['p0']
-
-bus0_in_country = n.links.query(
-    "carrier == 'H2 pipeline'" + "and (bus0 in @h2_buses and not bus1 in @h2_buses)"
-).index
-
-bus1_in_country = n.links.query(
-    "carrier == 'H2 pipeline'" + "and (bus0 in @h2_buses and not bus1 in @h2_buses)"
-).index
+#%% exported and imported energy (export is positive!)
+from typing import Tuple
 
 # BUS0
-# -1 * p0
-
-
+# p0 (export is positive; The power (p0,q0) at bus0 of a branch is positive if the branch is withdrawing power from bus0, i.e. bus0 is injecting into branch)
 # BUS1
-# -1 * p1
+# p1 (export is positive; Similarly the power (p1,q1) at bus1 of a branch is positive if the branch is withdrawing power from bus1, negative if the branch is injecting into bus1)
+def determine_export_import(
+    n: Network, component: str, carrier: str, carrier_buses: pd.Index
+) -> Tuple[float, float]:
+
+    component_df = getattr(n, component)
+
+    bus0_in_country = component_df.query(
+        "carrier == @carrier"
+        + " and (bus0 in @carrier_buses and not bus1 in @carrier_buses)"
+    ).index
+
+    bus1_in_country = component_df.query(
+        "carrier == @carrier"
+        + " and (bus1 in @carrier_buses and not bus0 in @carrier_buses)"
+    ).index
+
+    timeseries = getattr(n, f"{component}_t")
+
+    df = timeseries["p0"][bus0_in_country]
+    carrier_export = df[df > 0].sum().sum()
+    carrier_import = -df[df < 0].sum().sum()
+
+    df = timeseries["p1"][bus1_in_country]
+
+    carrier_export += df[df > 0].sum().sum()
+    carrier_import -= df[df < 0].sum().sum()
+
+    return carrier_export, carrier_import
+
+
+## hydrogen
+(df["Export - Waterstof"], df["Import - Waterstof"]) = determine_export_import(
+    n=n, component="links", carrier="H2 pipeline", carrier_buses=h2_buses
+)
 
 
 #%% electricity
+
+## DC links
+(df["Export - Elektriciteit"], df["Import - Elektriciteit"]) = determine_export_import(
+    n=n, component="links", carrier="DC", carrier_buses=ac_buses
+)
+## AC lines
+(ac_export, ac_import) = determine_export_import(
+    n=n, component="lines", carrier="AC", carrier_buses=ac_buses
+)
+df["Export - Elektriciteit"] += ac_export
+df["Import - Elektriciteit"] += ac_import
