@@ -104,7 +104,7 @@ generation.index = [
 ]
 demand.index = [f"Energievraag per drager - {i}" for i in demand.index]
 
-df = df = pd.concat([df, generation, demand])
+df = pd.concat([df, generation, demand])
 
 
 #%% export capacities
@@ -185,12 +185,15 @@ def determine_export_import(
 df["Export - Elektriciteit"] += ac_export
 df["Import - Elektriciteit"] += ac_import
 
-df = df.to_frame()
+
 #%%
-
+fdf = df.to_frame(name="result")
 units = pd.read_csv("units_required.csv", index_col=0)
-units.index.name = None
+fdf.index.name = 'parameter'
+units.index.name = 'parameter'
+fdf = fdf.join(units, on='parameter')
+unit_map = {"PJ": 3.6e-06, "GW": 1e-3, "Mt": 1e-6}
 
-df.join(units)
+fdf["result"] = fdf.apply(lambda row: row.result * unit_map[row.unit], axis=1)
 
-unit_map = {}
+fdf.shape
