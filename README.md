@@ -11,7 +11,7 @@
 3. DAC quantity (Mt)
 4. Installed capacity of all technologies (MW)
 5. Installed storage capacity of all technologies (MWh)
-6. Energy generation per carrier (MWh)
+6. Energy generation per carrier (PJ)
 7. Import and export capacity (GW)
    1. Hydrogen
    2. Electricity
