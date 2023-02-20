@@ -27,6 +27,7 @@ fp_cost = "costs.csv"
 nfp = NETWORKS[0]
 n = Network(str(nfp))
 year = int(nfp.stem[:4])
+scenario = nfp.stem.split("_")[2]
 h2_buses = n.buses.query("country == @country and carrier == 'H2'").index
 ac_buses = n.buses.query("country == @country and carrier == 'AC'").index
 
@@ -203,7 +204,6 @@ unit_map = {"PJ": 3.6e-06, "GW": 1e-3, "Mt": 1e-6}
 fdf["result"] = fdf.apply(lambda row: row.result * unit_map[row.unit], axis=1)
 
 
-
 #%%
 
 if False:
@@ -211,3 +211,8 @@ if False:
         np.array([np.array(l) for l in fdf.index.str.split(" - ").values]).T
     )
 
+SCENARIO_MAP = {
+    "disabled": "Geen kernenergie",
+    "centralized": "Grootschalig kernenergie",
+    "SMR": "SMR",
+}
