@@ -20,8 +20,8 @@ AC_carriers: ["AC line", "AC transformer"]
 link_carriers: ["DC line", "Converter AC-DC"]
 
 nice_names:
-  offwind-ac: "Wind op zee [AC]"
-  offwind-dc: "Wind op zee [DC]"
+  offwind-ac: "Wind op zee"
+  offwind-dc: "Wind op zee"
   onwind: "Wind op land"
   solar: "Zon-PV"
   PHS: "Gepompte wateropslag"
@@ -35,7 +35,7 @@ nice_names:
   nuclear: "Kernenergie"
   OCGT-nextgen: "Waterstofcentrale OCGT"
   CCGT-nextgen: "Waterstofcentrale CCGT"
-  nuclear_nextgen: "Kernenergie nextgen"
+  nuclear_nextgen: "Kernenergie"
   BECCS: "Biomassa+CCS"
   biomass: "Biomassa"
   DAC: "Direct air capture"

@@ -1,4 +1,4 @@
-Parameter,unit
+parameter,unit
 Opgesteld vermogen - Biomassa+CCS,GW
 Opgesteld vermogen - Waterstofcentrale CCGT,GW
 Opgesteld vermogen - Waterstofcentrale CCGT,GW
@@ -9,9 +9,7 @@ Opgesteld vermogen - Waterstofcentrale OCGT,GW
 Opgesteld vermogen - Batterijopslag,GW
 Opgesteld vermogen - Biomassa,GW
 Opgesteld vermogen - Kernenergie,GW
-Opgesteld vermogen - Kernenergie nextgen,GW
-Opgesteld vermogen - Wind op zee [AC],GW
-Opgesteld vermogen - Wind op zee [DC],GW
+Opgesteld vermogen - Wind op zee,GW
 Opgesteld vermogen - Wind op land,GW
 Opgesteld vermogen - Zon-PV,GW
 Opgesteld vermogen - Afvalverbranding,GW

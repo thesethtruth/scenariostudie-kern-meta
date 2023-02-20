@@ -1,5 +1,6 @@
 #%% packages
 import pandas as pd
+import numpy as np
 from pypsa import Network
 from typing import Tuple
 
@@ -186,14 +187,27 @@ df["Export - Elektriciteit"] += ac_export
 df["Import - Elektriciteit"] += ac_import
 
 
-#%%
-fdf = df.to_frame(name="result")
-units = pd.read_csv("units_required.csv", index_col=0)
-fdf.index.name = 'parameter'
-units.index.name = 'parameter'
-fdf = fdf.join(units, on='parameter')
-unit_map = {"PJ": 3.6e-06, "GW": 1e-3, "Mt": 1e-6}
+#%% map the correct units from MW, MWh and tonnes
+df.index.name = "parameter"
+fdf = df.to_frame(name="result").groupby("parameter").sum()  # sum legacy and nextgen
+units = (
+    pd.read_csv("units_required.csv")
+    .drop_duplicates(subset=["parameter"])
+    .set_index("parameter")
+)
 
+units.index.name = "parameter"
+fdf = fdf.join(units, how="left", on="parameter")
+
+unit_map = {"PJ": 3.6e-06, "GW": 1e-3, "Mt": 1e-6}
 fdf["result"] = fdf.apply(lambda row: row.result * unit_map[row.unit], axis=1)
 
-fdf.shape
+
+
+#%%
+
+if False:
+    fdf.index = pd.MultiIndex.from_arrays(
+        np.array([np.array(l) for l in fdf.index.str.split(" - ").values]).T
+    )
+
