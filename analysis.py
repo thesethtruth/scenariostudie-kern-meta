@@ -118,14 +118,14 @@ df["Export/import capaciteit - Waterstof pijpleiding"] = n.links.query(
 )["p_nom_opt"].sum()
 
 ## Links
-df["Export/import capaciteit - DC links"] = n.links.query(
+df["Export/import capaciteit - DC links + AC overland"] = n.links.query(
     "carrier == 'DC'"
     + "and ((bus0 in @ac_buses and not bus1 in @ac_buses)"
     + "or (bus1 in @ac_buses and not bus0 in @ac_buses))"
 )["p_nom_opt"].sum()
 
 ## AC
-df["Export/import capaciteit - AC overland"] = n.lines.query(
+df["Export/import capaciteit - DC links + AC overland"] += n.lines.query(
     "(bus0 in @ac_buses and not bus1 in @ac_buses)"
     + "or (bus1 in @ac_buses and not bus0 in @ac_buses)"
 )["s_nom_opt"].sum()

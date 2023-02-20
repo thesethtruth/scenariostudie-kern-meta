@@ -1,44 +1,43 @@
-parameter,unit
-Opgesteld vermogen - Biomassa+CCS,GW
-Opgesteld vermogen - Waterstofcentrale CCGT,GW
-Opgesteld vermogen - Waterstofcentrale CCGT,GW
-Opgesteld vermogen - Direct air capture,GW
-Opgesteld vermogen - Elektrolyse,GW
-Opgesteld vermogen - Waterstofcentrale OCGT,GW
-Opgesteld vermogen - Waterstofcentrale OCGT,GW
-Opgesteld vermogen - Batterijopslag,GW
-Opgesteld vermogen - Biomassa,GW
-Opgesteld vermogen - Kernenergie,GW
-Opgesteld vermogen - Wind op zee,GW
-Opgesteld vermogen - Wind op land,GW
-Opgesteld vermogen - Zon-PV,GW
-Opgesteld vermogen - Afvalverbranding,GW
-Export/import capaciteit - Waterstof pijpleiding,GW
-Export/import capaciteit - DC links,GW
-Export/import capaciteit - AC overland,GW
-Negatieve emissies - BECCS,Mt
-Negatieve emissies - DAC,Mt
-Opgewekte energie per technologie - Waterstofcentrale CCGT,PJ
-Opgewekte energie per technologie - Waterstofcentrale CCGT,PJ
-Opgewekte energie per technologie - H2-brandstofcel,PJ
-Opgewekte energie per technologie - Waterstofcentrale OCGT,PJ
-Opgewekte energie per technologie - Waterstofcentrale OCGT,PJ
-Opgewekte energie per technologie - Biomassa+CCS,PJ
-Opgewekte energie per technologie - Direct air capture,PJ
-Opgewekte energie per technologie - Biomassa,PJ
-Opgewekte energie per technologie - Kernenergie,PJ
-Opgewekte energie per technologie - Kernenergie,PJ
-Opgewekte energie per technologie - Wind op zee,PJ
-Opgewekte energie per technologie - Wind op zee,PJ
-Opgewekte energie per technologie - Wind op land,PJ
-Opgewekte energie per technologie - Zon-PV,PJ
-Opgewekte energie per technologie - Afvalverbranding,PJ
-Energievraag per drager - Elektrische vraag,PJ
-Energievraag per drager - H2 Electrolysis,PJ
-Export - Waterstof,PJ
-Import - Waterstof,PJ
-Export - Elektriciteit,PJ
-Import - Elektriciteit,PJ
-Opgestelde energiecapaciteit - Gepompte wateropslag,PJ
-Opgestelde energiecapaciteit - Batterijopslag,PJ
-Opgestelde energiecapaciteit - Waterstofopslag,PJ
+parameter,unit, mapping
+Opgesteld vermogen - Biomassa+CCS,GW,
+Opgesteld vermogen - Waterstofcentrale CCGT,GW,
+Opgesteld vermogen - Waterstofcentrale CCGT,GW,
+Opgesteld vermogen - Direct air capture,GW,
+Opgesteld vermogen - Elektrolyse,GW,
+Opgesteld vermogen - Waterstofcentrale OCGT,GW,
+Opgesteld vermogen - Waterstofcentrale OCGT,GW,
+Opgesteld vermogen - Batterijopslag,GW,
+Opgesteld vermogen - Biomassa,GW,
+Opgesteld vermogen - Kernenergie,GW,
+Opgesteld vermogen - Wind op zee,GW,
+Opgesteld vermogen - Wind op land,GW,
+Opgesteld vermogen - Zon-PV,GW,
+Opgesteld vermogen - Afvalverbranding,GW,
+Export/import capaciteit - Waterstof pijpleiding,GW,
+Export/import capaciteit - DC links + AC overland,GW,
+Negatieve emissies - BECCS,Mt,
+Negatieve emissies - DAC,Mt,
+Opgewekte energie per technologie - Waterstofcentrale CCGT,PJ,
+Opgewekte energie per technologie - Waterstofcentrale CCGT,PJ,
+Opgewekte energie per technologie - H2-brandstofcel,PJ,
+Opgewekte energie per technologie - Waterstofcentrale OCGT,PJ,
+Opgewekte energie per technologie - Waterstofcentrale OCGT,PJ,
+Opgewekte energie per technologie - Biomassa+CCS,PJ,
+Opgewekte energie per technologie - Direct air capture,PJ,
+Opgewekte energie per technologie - Biomassa,PJ,
+Opgewekte energie per technologie - Kernenergie,PJ,
+Opgewekte energie per technologie - Kernenergie,PJ,
+Opgewekte energie per technologie - Wind op zee,PJ,
+Opgewekte energie per technologie - Wind op zee,PJ,
+Opgewekte energie per technologie - Wind op land,PJ,
+Opgewekte energie per technologie - Zon-PV,PJ,
+Opgewekte energie per technologie - Afvalverbranding,PJ,
+Energievraag per drager - Elektrische vraag,PJ,
+Energievraag per drager - H2 Electrolysis,PJ,
+Export - Waterstof,PJ,
+Import - Waterstof,PJ,
+Export - Elektriciteit,PJ,
+Import - Elektriciteit,PJ,
+Opgestelde energiecapaciteit - Gepompte wateropslag,PJ,
+Opgestelde energiecapaciteit - Batterijopslag,PJ,
+Opgestelde energiecapaciteit - Waterstofopslag,PJ,
