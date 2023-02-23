@@ -208,32 +208,42 @@ unit_map = {
 }
 fdf["result"] = fdf.apply(lambda row: row.result * unit_map[row.unit], axis=1)
 
+#%% Final cleanup
+
+fdf = fdf.groupby(["key_indicator", "sector", "categorie", "drager"], dropna=False).sum(
+    numeric_only=True
+) # sum categories with overlap
+
+fdf.index.names = [*[None] * len(fdf.index.names)]
+
+fdf = fdf[[not all([pd.isna(x) for x in i]) for i in fdf.index]] # drop rules with no assignment in format
+
+
+SCENARIO_MAP = {
+    "disabled": "Geen kernenergie",
+    "centralized": "Grootschalig kernenergie",
+    "SMR": "SMR",
+}
 
 #%% insert the results in the format
-import pandas as pd
-import numpy as np
-from pandas import IndexSlice as idx
 
-
-mf = pd.read_excel("230223cleanformat.xlsx", index_col=[0,1,2,3], header=[0,1,2,3])
-
-index_slice = idx[
-    "Elektriciteitsopwek (GW)",
-    "Totaal",
-    "Biomassa",
-    :
-]
-
-scenario = (
-    "Scenariostudie kernenergie",
-    "Geen kernenergie",
-    2040,
-    "Nederland",
+mf = pd.read_excel(
+    "230223cleanformat.xlsx",
+    header=[0, 1, 2, 3],
 )
 
-mf[scenario] = np.NaN
+## because pandas does a BS autosort if you directly use `index_cols` on read_excel, we use manual assignment of indices
+for i in range(len(fdf.index[0])):
+    mf.set_index(mf.columns[0], append=True, inplace=True)
+mf = mf.droplevel(0, axis=0)
+mf.index.names = [*[None] * len(mf.index.names)]
 
-mf.loc[index_slice, scenario] = 1
+for i in fdf.index:
+    if not (i in mf.index):
+        raise KeyError("Niet gevonden mapping:", i, f"({nfp.stem})")
+
+pd.concat([mf, fdf], axis=1, sort=False).head(50)
+
 
 #%%
 if False:
@@ -241,8 +251,4 @@ if False:
         np.array([np.array(l) for l in fdf.index.str.split(" - ").values]).T
     )
 
-SCENARIO_MAP = {
-    "disabled": "Geen kernenergie",
-    "centralized": "Grootschalig kernenergie",
-    "SMR": "SMR",
-}
+
