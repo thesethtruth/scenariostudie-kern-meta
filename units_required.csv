@@ -2,7 +2,7 @@ parameter,unit,key_indicator,sector,categorie,drager,comment
 Opgesteld vermogen - Biomassa+CCS,GW,Elektriciteitsopwek (GW),Totaal,Biomassa,,
 Opgesteld vermogen - Waterstofcentrale CCGT,GW,Elektriciteitsopwek (GW),Totaal,Waterstof,,CCGT + OCGT + Fuelcell (mist!)
 Opgesteld vermogen - Waterstofcentrale OCGT,GW,Elektriciteitsopwek (GW),Totaal,Waterstof,,
-Opgesteld vermogen - Direct air capture,GW,Elektriciteitsopwek (GW),Totaal,DAC,,
+Opgesteld vermogen - Direct air capture,GW,,,,,Geen categorie?
 Opgesteld vermogen - Elektrolyse,GW,Flexibele vraag - geinstalleerd outputvermogen ,Totaal,Power-to-hydrogen,,
 Opgesteld vermogen - Batterijopslag,GW,Flexibele vraag - geinstalleerd outputvermogen ,Totaal,Batterijen,,
 Opgesteld vermogen - Biomassa,GW,Elektriciteitsopwek (GW),Totaal,Biomassa,,
@@ -11,27 +11,27 @@ Opgesteld vermogen - Wind op zee,GW,Elektriciteitsopwek (GW),Totaal,Wind offshor
 Opgesteld vermogen - Wind op land,GW,Elektriciteitsopwek (GW),Totaal,Wind onshore,,
 Opgesteld vermogen - Zon-PV,GW,Elektriciteitsopwek (GW),Totaal,Zon-PV,,
 Opgesteld vermogen - Afvalverbranding,GW,Elektriciteitsopwek (GW),Totaal,Afvalverbranding,,
-Export/import capaciteit - Waterstof pijpleiding,GW,Infrastructuur,Waterstof,Import capaciteit,,
-Export/import capaciteit - DC links + AC overland,GW,Infrastructuur,Elektriciteit,Import capaciteit,,DC links + AC overland
+Export/import capaciteit - Waterstof pijpleiding,GW,Infrastructuur,Waterstof,Import capaciteit,Waterstof,
+Export/import capaciteit - DC links + AC overland,GW,Infrastructuur,Elektriciteit,Import capaciteit,Elektriciteit,DC links + AC overland
 Negatieve emissies - BECCS,Mt,CO2-afvang,,CCS,,
 Negatieve emissies - DAC,Mt,CO2-afvang,,DAC,,
-Opgewekte energie per technologie - Waterstofcentrale CCGT,PJ,Elektriciteitsopwek (PJ),,Waterstof,,CCGT + OCGT + Fuelcell
-Opgewekte energie per technologie - Waterstofcentrale OCGT,PJ,Elektriciteitsopwek (PJ),,Waterstof,,
-Opgewekte energie per technologie - H2-brandstofcel,PJ,Elektriciteitsopwek (PJ),,Waterstof,,
-Opgewekte energie per technologie - Biomassa+CCS,PJ,Elektriciteitsopwek (PJ),,Biomassa,,BECCS + Biomassa
+Opgewekte energie per technologie - Waterstofcentrale CCGT,PJ,Elektriciteitsopwek (PJ),Totaal,Waterstof,,CCGT + OCGT + Fuelcell
+Opgewekte energie per technologie - Waterstofcentrale OCGT,PJ,Elektriciteitsopwek (PJ),Totaal,Waterstof,,
+Opgewekte energie per technologie - H2-brandstofcel,PJ,Elektriciteitsopwek (PJ),Totaal,Waterstof,,
+Opgewekte energie per technologie - Biomassa+CCS,PJ,Elektriciteitsopwek (PJ),Totaal,Biomassa,,BECCS + Biomassa
 Opgewekte energie per technologie - Direct air capture,PJ,,,,,Geen categorie?
-Opgewekte energie per technologie - Biomassa,PJ,Elektriciteitsopwek (PJ),,Biomassa,,
-Opgewekte energie per technologie - Kernenergie,PJ,Elektriciteitsopwek (PJ),,Kernenergie,,
-Opgewekte energie per technologie - Wind op zee,PJ,Elektriciteitsopwek (PJ),,Wind offshore,,AC + DC
-Opgewekte energie per technologie - Wind op land,PJ,Elektriciteitsopwek (PJ),,Wind onshore,,
-Opgewekte energie per technologie - Zon-PV,PJ,Elektriciteitsopwek (PJ),,Zon-PV,,
-Opgewekte energie per technologie - Afvalverbranding,PJ,Elektriciteitsopwek (PJ),,Afvalverbranding,,
+Opgewekte energie per technologie - Biomassa,PJ,Elektriciteitsopwek (PJ),Totaal,Biomassa,,
+Opgewekte energie per technologie - Kernenergie,PJ,Elektriciteitsopwek (PJ),Totaal,Kernenergie,,
+Opgewekte energie per technologie - Wind op zee,PJ,Elektriciteitsopwek (PJ),Totaal,Wind offshore,,AC + DC
+Opgewekte energie per technologie - Wind op land,PJ,Elektriciteitsopwek (PJ),Totaal,Wind onshore,,
+Opgewekte energie per technologie - Zon-PV,PJ,Elektriciteitsopwek (PJ),Totaal,Zon-PV,,
+Opgewekte energie per technologie - Afvalverbranding,PJ,Elektriciteitsopwek (PJ),Totaal,Afvalverbranding,,
 Energievraag per drager - Elektrische vraag,PJ,Finale energievraag,Totaal,,Elektriciteit,
-Energievraag per drager - H2 Electrolysis,PJ - H2 LHV,Conversie - productievolume,,Power-to-hydrogen,Waterstof,elektrische vraag door elektrolyse
+Energievraag per drager - H2 Electrolysis,PJ - H2 LHV,Conversie - productievolume,Totaal,Power-to-hydrogen,,elektrische vraag door elektrolyse
 Export - Waterstof,PJ,Infrastructuur,Waterstof,Export ,Waterstof,
 Import - Waterstof,PJ,Infrastructuur,Waterstof,Import,Waterstof,
 Export - Elektriciteit,PJ,Infrastructuur,Elektriciteit,Export ,Elektriciteit,
 Import - Elektriciteit,PJ,Infrastructuur,Elektriciteit,Import,Elektriciteit,Verbinden naar aanbod PJ in elektriciteit
-Opgestelde energiecapaciteit - Gepompte wateropslag,PJ,Opslagcapaciteit,,Elektriciteit,,
-Opgestelde energiecapaciteit - Batterijopslag,PJ,Opslagcapaciteit,,Elektriciteit,,
-Opgestelde energiecapaciteit - Waterstofopslag,PJ,Opslagcapaciteit,,Waterstof,,
+Opgestelde energiecapaciteit - Gepompte wateropslag,PJ,Opslagcapaciteit,Totaal,Elektriciteit,,
+Opgestelde energiecapaciteit - Batterijopslag,PJ,Opslagcapaciteit,Totaal,Elektriciteit,,
+Opgestelde energiecapaciteit - Waterstofopslag,PJ,Opslagcapaciteit,Totaal,Waterstof,,
