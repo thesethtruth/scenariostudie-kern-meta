@@ -1,18 +1,18 @@
 parameter,unit, key_indicator, sector, categorie, drager,comment
-Opgesteld vermogen - Biomassa+CCS,GW,,,Biomassa,,
-Opgesteld vermogen - Waterstofcentrale CCGT,GW,,,Waterstof,,CCGT + OCGT + Fuelcell (mist!)
-Opgesteld vermogen - Waterstofcentrale CCGT,GW,,,Waterstof,,
-Opgesteld vermogen - Direct air capture,GW,,,DAC,,
-Opgesteld vermogen - Elektrolyse,GW,,,Power-to-hydrogen,,
-Opgesteld vermogen - Batterijopslag,GW,,,Batterijen,,
-Opgesteld vermogen - Biomassa,GW,,,Biomassa,,
-Opgesteld vermogen - Kernenergie,GW,,,Kernenergie,,
-Opgesteld vermogen - Wind op zee,GW,,,Wind offshore,,
-Opgesteld vermogen - Wind op land,GW,,,Wind onshore,,
-Opgesteld vermogen - Zon-PV,GW,,,Zon-PV,,
-Opgesteld vermogen - Afvalverbranding,GW,,,Afvalverbranding,,
-Export/import capaciteit - Waterstof pijpleiding,GW,,Waterstof,Import capaciteit,,
-Export/import capaciteit - DC links + AC overland,GW,,Elektriciteit,Import capaciteit,,DC links + AC overland
+Opgesteld vermogen - Biomassa+CCS,GW,Elektriciteitsopwek (GW),Totaal,Biomassa,,
+Opgesteld vermogen - Waterstofcentrale CCGT,GW,Elektriciteitsopwek (GW),Totaal,Waterstof,,CCGT + OCGT + Fuelcell (mist!)
+Opgesteld vermogen - Waterstofcentrale OCGT,GW,Elektriciteitsopwek (GW),Totaal,Waterstof,,
+Opgesteld vermogen - Direct air capture,GW,Elektriciteitsopwek (GW),Totaal,DAC,,
+Opgesteld vermogen - Elektrolyse,GW,Flexibele vraag - geinstalleerd outputvermogen ,Totaal,Power-to-hydrogen,,
+Opgesteld vermogen - Batterijopslag,GW,Flexibele vraag - geinstalleerd outputvermogen ,Totaal,Batterijen,,
+Opgesteld vermogen - Biomassa,GW,Elektriciteitsopwek (GW),Totaal,Biomassa,,
+Opgesteld vermogen - Kernenergie,GW,Elektriciteitsopwek (GW),Totaal,Kernenergie,,
+Opgesteld vermogen - Wind op zee,GW,Elektriciteitsopwek (GW),Totaal,Wind offshore,,
+Opgesteld vermogen - Wind op land,GW,Elektriciteitsopwek (GW),Totaal,Wind onshore,,
+Opgesteld vermogen - Zon-PV,GW,Elektriciteitsopwek (GW),Totaal,Zon-PV,,
+Opgesteld vermogen - Afvalverbranding,GW,Elektriciteitsopwek (GW),Totaal,Afvalverbranding,,
+Export/import capaciteit - Waterstof pijpleiding,GW,Infrastructuur,Waterstof,Import capaciteit,,
+Export/import capaciteit - DC links + AC overland,GW,Infrastructuur,Elektriciteit,Import capaciteit,,DC links + AC overland
 Negatieve emissies - BECCS,Mt,CO2-afvang,,CCS,,
 Negatieve emissies - DAC,Mt,CO2-afvang,,DAC,,
 Opgewekte energie per technologie - Waterstofcentrale CCGT,PJ,Elektriciteitsopwek (PJ),,Waterstof,,CCGT + OCGT + Fuelcell
@@ -26,12 +26,12 @@ Opgewekte energie per technologie - Wind op zee,PJ,Elektriciteitsopwek (PJ),,Win
 Opgewekte energie per technologie - Wind op land,PJ,Elektriciteitsopwek (PJ),,Wind onshore,,
 Opgewekte energie per technologie - Zon-PV,PJ,Elektriciteitsopwek (PJ),,Zon-PV,,
 Opgewekte energie per technologie - Afvalverbranding,PJ,Elektriciteitsopwek (PJ),,Afvalverbranding,,
-Energievraag per drager - Elektrische vraag,PJ,,Totaal,,Elektriciteit,
-Energievraag per drager - H2 Electrolysis,PJ,,,,Waterstof,elektrische vraag door elektrolyse
-Export - Waterstof,PJ,,,Export ,,
-Import - Waterstof,PJ,,,Import,,
-Export - Elektriciteit,PJ,,,Export ,,
-Import - Elektriciteit,PJ,,,Import,,Verbinden naar aanbod PJ in elektriciteit
-Opgestelde energiecapaciteit - Gepompte wateropslag,PJ,,,Elektriciteit,,
-Opgestelde energiecapaciteit - Batterijopslag,PJ,,,Elektriciteit,,
-Opgestelde energiecapaciteit - Waterstofopslag,PJ,,,Waterstof,,
+Energievraag per drager - Elektrische vraag,PJ,Finale energievraag,Totaal,,Elektriciteit,
+Energievraag per drager - H2 Electrolysis,PJ - H2 LHV,Conversie - productievolume,,Power-to-hydrogen,Waterstof,elektrische vraag door elektrolyse
+Export - Waterstof,PJ,Infrastructuur,Waterstof,Export ,Waterstof,
+Import - Waterstof,PJ,Infrastructuur,Waterstof,Import,Waterstof,
+Export - Elektriciteit,PJ,Infrastructuur,Elektriciteit,Export ,Elektriciteit,
+Import - Elektriciteit,PJ,Infrastructuur,Elektriciteit,Import,Elektriciteit,Verbinden naar aanbod PJ in elektriciteit
+Opgestelde energiecapaciteit - Gepompte wateropslag,PJ,Opslagcapaciteit,,Elektriciteit,,
+Opgestelde energiecapaciteit - Batterijopslag,PJ,Opslagcapaciteit,,Elektriciteit,,
+Opgestelde energiecapaciteit - Waterstofopslag,PJ,Opslagcapaciteit,,Waterstof,,
