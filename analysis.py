@@ -200,12 +200,42 @@ units = (
 units.index.name = "parameter"
 fdf = fdf.join(units, how="left", on="parameter")
 
-unit_map = {"PJ": 3.6e-06, "GW": 1e-3, "Mt": 1e-6}
+unit_map = {
+    "PJ": 3.6e-06,
+    "GW": 1e-3,
+    "Mt": 1e-6,
+    "PJ - H2 LHV": 3.6e-06 * costs.at["electrolysis", "efficiency"],
+}
 fdf["result"] = fdf.apply(lambda row: row.result * unit_map[row.unit], axis=1)
 
 
-#%%
+#%% insert the results in the format
+import pandas as pd
+import numpy as np
+from pandas import IndexSlice as idx
 
+
+mf = pd.read_excel("230223cleanformat.xlsx", index_col=[0,1,2,3], header=[0,1,2,3])
+
+index_slice = idx[
+    "Elektriciteitsopwek (GW)",
+    "Totaal",
+    "Biomassa",
+    :
+]
+
+scenario = (
+    "Scenariostudie kernenergie",
+    "Geen kernenergie",
+    2040,
+    "Nederland",
+)
+
+mf[scenario] = np.NaN
+
+mf.loc[index_slice, scenario] = 1
+
+#%%
 if False:
     fdf.index = pd.MultiIndex.from_arrays(
         np.array([np.array(l) for l in fdf.index.str.split(" - ").values]).T
