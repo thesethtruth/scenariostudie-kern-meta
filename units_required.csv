@@ -1,4 +1,4 @@
-parameter,unit, key_indicator, sector, categorie, drager,comment
+parameter,unit,key_indicator,sector,categorie,drager,comment
 Opgesteld vermogen - Biomassa+CCS,GW,Elektriciteitsopwek (GW),Totaal,Biomassa,,
 Opgesteld vermogen - Waterstofcentrale CCGT,GW,Elektriciteitsopwek (GW),Totaal,Waterstof,,CCGT + OCGT + Fuelcell (mist!)
 Opgesteld vermogen - Waterstofcentrale OCGT,GW,Elektriciteitsopwek (GW),Totaal,Waterstof,,
